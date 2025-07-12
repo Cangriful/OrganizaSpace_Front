@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth-service';
 })
 export class NavbarComponent {
   constructor(public authService: AuthService) {}
-
+/*para ocultar o mostrar botones en el navbar*/
   tieneRol(roles: string | string[]): boolean {
     return this.authService.tieneRol(roles);
   }
