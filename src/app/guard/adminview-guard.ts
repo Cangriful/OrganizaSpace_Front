@@ -11,7 +11,7 @@ export const adminviewGuard: CanActivateFn = (route, state) => {
     router.navigate(['/login']);
     return false;
   }
-  
+  /*este guard sirve para darle acceso a el adminm a ciertos componentes*/
   if (!userService.hasRole('ADMIN')) {
     router.navigate(['/inicio']);
     return false;
