@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { SuscripcionService } from '../../services/suscripcion-service';
-
+/*Aca se muestra el metodo de pago*/
 @Component({
   selector: 'app-metodopago-component',
   standalone: false,
