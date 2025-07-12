@@ -132,4 +132,4 @@ export class RegisterComponent {
     this.previewUrl = null;
   }
 }
-
+/*register*/
