@@ -9,6 +9,7 @@ import { EspaciosService } from '../../services/espacios-service';
   styleUrl: './espacios-casa-component.css'
 })
 export class EspaciosCasaComponent {
+  /*array de espacios*/
  espacios: Espacios[] = [];
 
   constructor(private espaciosService: EspaciosService) {}
