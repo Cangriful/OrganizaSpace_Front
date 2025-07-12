@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { FotosService } from '../../services/fotos-service';
 import { Fotos } from '../../../models/fotos';
 import { AuthService } from '../../services/auth-service';
-
+/*Este espacio sirve para subir las fotos*/
 @Component({
   selector: 'app-subir-fotos',
   standalone: false,
