@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Espacios } from '../../../models/espacios';
 import { EspaciosService } from '../../services/espacios-service';
-
+/*Este componente es para ver los espacios de casa*/
 @Component({
   selector: 'app-espacios-casa-component',
   standalone: false,
