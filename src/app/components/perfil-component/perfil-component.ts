@@ -26,7 +26,7 @@ export class PerfilComponent implements OnInit {
     private router: Router,
     private suscripcionService: SuscripcionService
   ) {}
-
+/*el oninit se carga justo despues del elementos visuales*/
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       try {
