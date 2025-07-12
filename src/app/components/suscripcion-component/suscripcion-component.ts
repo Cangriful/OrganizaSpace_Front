@@ -24,7 +24,7 @@ export class SuscripcionComponent implements OnInit {
     private suscripcionService: SuscripcionService,
     private router: Router
   ) {}
-
+/*Aca puedo visualizar los roles*/
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       try {
