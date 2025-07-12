@@ -1,0 +1,82 @@
+<mat-card *ngIf="currentUser">
+  <mat-card-header>
+    <div mat-card-avatar><mat-icon>person</mat-icon></div>
+    <mat-card-title>{{ currentUser.nombre }} {{ currentUser.apellido }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p><mat-icon>phone</mat-icon> <strong>Teléfono:</strong> {{ currentUser.telefono }}</p>
+    <p><mat-icon>email</mat-icon> <strong>Correo:</strong> {{ currentUser.username }}</p>
+    <p><mat-icon>shield</mat-icon> <strong>Rol:</strong> {{ currentUser.authorities[0] }}</p>
+
+    <!-- Información de suscripción solo para usuarios -->
+    <div *ngIf="esUsuario">
+      <!-- Información de suscripción -->
+      <div class="suscripcion-info" *ngIf="tieneSuscripcionActiva">
+        <mat-divider></mat-divider>
+        <h3><mat-icon>star</mat-icon> Suscripción Activa</h3>
+        <p><strong>Plan:</strong> {{ suscripcionActual?.nombre }}</p>
+        <p><strong>Vence:</strong> {{ formatearFecha(suscripcionActual?.fechaVencimiento || '') }}</p>
+        <p><strong>Días restantes:</strong> {{ diasRestantes }} días</p>
+        <p><strong>Precio:</strong> s/{{ suscripcionActual?.pago }}</p>
+        
+        <div class="suscripcion-actions">
+          <button mat-raised-button color="primary" (click)="renovarSuscripcion()">
+            <mat-icon>refresh</mat-icon>
+            Renovar
+          </button>
+          <button mat-raised-button color="warn" (click)="cancelarSuscripcion()">
+            <mat-icon>cancel</mat-icon>
+            Cancelar
+          </button>
+        </div>
+      </div>
+
+      <div class="sin-suscripcion" *ngIf="!tieneSuscripcionActiva">
+        <mat-divider></mat-divider>
+        <h3><mat-icon>star_outline</mat-icon> Sin Suscripción</h3>
+        <p>No tienes una suscripción activa. Suscríbete para disfrutar de todas las funciones premium.</p>
+        <button mat-raised-button color="primary" routerLink="/suscripcion">
+          <mat-icon>add</mat-icon>
+          Suscribirse
+        </button>
+      </div>
+
+      <!-- Historial de suscripciones -->
+      <div class="historial-suscripciones" *ngIf="historialSuscripciones.length > 0">
+        <mat-divider></mat-divider>
+        <h3><mat-icon>history</mat-icon> Historial de Suscripciones</h3>
+        <mat-list>
+          <mat-list-item *ngFor="let suscripcion of historialSuscripciones">
+            <mat-icon mat-list-icon>receipt</mat-icon>
+            <div mat-line>
+              <strong>{{ suscripcion.nombre }}</strong> - s/{{ suscripcion.pago }}
+            </div>
+            <div mat-line>
+              {{ formatearFecha(suscripcion.fechaInicio) }} - {{ formatearFecha(suscripcion.fechaVencimiento) }}
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+
+    <!-- Mensaje para diseñadores y administradores -->
+    <div *ngIf="!esUsuario" class="rol-info">
+      <mat-divider></mat-divider>
+      <h3><mat-icon>verified</mat-icon> Cuenta Premium</h3>
+      <p>Como {{ currentUser.authorities[0] }}, tienes acceso completo a todas las funciones sin necesidad de suscripción.</p>
+      <ul>
+        <li>✅ Mensajes ilimitados</li>
+        <li>✅ Subir imágenes ilimitadas</li>
+        <li>✅ Acceso completo a todas las funciones</li>
+      </ul>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions style="display: flex; justify-content: flex-end;">
+    <button mat-raised-button color="warn" (click)="cerrarSesion()">
+      <mat-icon>logout</mat-icon>
+      Cerrar sesión
+    </button>
+  </mat-card-actions>
+</mat-card>

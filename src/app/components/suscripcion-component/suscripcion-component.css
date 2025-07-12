@@ -1,0 +1,292 @@
+.suscripcion-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.titulo {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+  font-weight: 300;
+}
+
+/* Información de suscripción actual */
+.suscripcion-actual {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 30px;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.suscripcion-info h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.suscripcion-details {
+  margin-bottom: 20px;
+}
+
+.suscripcion-details p {
+  margin: 8px 0;
+  font-size: 1.1em;
+}
+
+.suscripcion-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-renovar, .btn-cancelar {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-renovar {
+  background: #4CAF50;
+  color: white;
+}
+
+.btn-renovar:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+}
+
+.btn-cancelar {
+  background: #f44336;
+  color: white;
+}
+
+.btn-cancelar:hover {
+  background: #da190b;
+  transform: translateY(-2px);
+}
+
+/* Mensaje para usuarios sin suscripción */
+.sin-suscripcion {
+  background: #e3f2fd;
+  border: 2px solid #2196F3;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.sin-suscripcion p {
+  margin: 0;
+  font-size: 1.2em;
+  color: #1976d2;
+  font-weight: 500;
+}
+
+/* Planes de suscripción */
+.planes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.plan {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  border: 2px solid transparent;
+}
+
+.plan:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.plan.destacado {
+  border-color: #ff6b6b;
+  transform: scale(1.05);
+}
+
+.plan.destacado:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff6b6b;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(255,107,107,0.3);
+}
+
+.plan h3 {
+  color: #333;
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.plan h3 span {
+  font-size: 0.6em;
+  color: #666;
+  font-weight: 400;
+}
+
+.precio {
+  font-size: 2.5em;
+  font-weight: 700;
+  color: #ff6b6b;
+  margin: 20px 0;
+}
+
+.ahorro {
+  background: #4CAF50;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 15px;
+  font-size: 0.9em;
+  font-weight: 600;
+  margin: 10px 0;
+  display: inline-block;
+}
+
+.plan ul {
+  list-style: none;
+  padding: 0;
+  margin: 25px 0;
+}
+
+.plan li {
+  padding: 8px 0;
+  color: #555;
+  font-size: 1.1em;
+}
+
+.plan button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 25px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.plan button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+}
+
+.plan button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Planes específicos */
+.plan.free {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.plan.free h3,
+.plan.free .precio,
+.plan.free li {
+  color: white;
+}
+
+.plan.free button {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid white;
+}
+
+.plan.free button:hover:not(:disabled) {
+  background: white;
+  color: #f5576c;
+}
+
+.plan.premium-mes {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.plan.premium-mes h3,
+.plan.premium-mes .precio,
+.plan.premium-mes li {
+  color: white;
+}
+
+.plan.premium-mes button {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid white;
+}
+
+.plan.premium-mes button:hover:not(:disabled) {
+  background: white;
+  color: #4facfe;
+}
+
+.plan.premium-anual {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+}
+
+.plan.premium-anual h3,
+.plan.premium-anual .precio,
+.plan.premium-anual li {
+  color: white;
+}
+
+.plan.premium-anual button {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid white;
+}
+
+.plan.premium-anual button:hover:not(:disabled) {
+  background: white;
+  color: #43e97b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .planes {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .plan {
+    padding: 20px;
+  }
+  
+  .suscripcion-actions {
+    flex-direction: column;
+  }
+  
+  .titulo {
+    font-size: 2em;
+  }
+}

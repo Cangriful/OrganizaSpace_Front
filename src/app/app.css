@@ -1,0 +1,21 @@
+/* Hace que la app use toda la altura de la pantalla */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* El contenido dinámico se expande entre navbar y footer */
+.main-content {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("/src/assets/pagos/espacio.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+

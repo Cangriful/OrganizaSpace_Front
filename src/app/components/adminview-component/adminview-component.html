@@ -1,0 +1,157 @@
+<div class="admin-dashboard">
+  <!-- Header del admin -->
+  <mat-card class="welcome-card">
+    <mat-card-title>👋 ¡Hola, {{ currentAdmin?.nombre }}!</mat-card-title>
+    <mat-card-content>
+      <p>Estás en el panel de administración. Aquí puedes gestionar todos los usuarios registrados.</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Estadísticas -->
+  <div class="stats-container">
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-number">{{ getEstadisticas().totalUsuarios }}</div>
+        <div class="stat-label">Usuarios</div>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-number">{{ getEstadisticas().totalDisenadores }}</div>
+        <div class="stat-label">Diseñadores</div>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-number">{{ getEstadisticas().usuariosConSuscripcion }}</div>
+        <div class="stat-label">Con Suscripción</div>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-number">{{ getEstadisticas().totalAdmins }}</div>
+        <div class="stat-label">Administradores</div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Filtros -->
+  <mat-card class="filters-card">
+    <mat-card-content>
+      <div class="filters-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Filtrar por nombre o correo</mat-label>
+          <input matInput (keyup)="applyFilter($event)" />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Filtrar por rol</mat-label>
+          <mat-select [(ngModel)]="filtroRol" (selectionChange)="filtrarPorRol($event.value)">
+            <mat-option value="todos">Todos los roles</mat-option>
+            <mat-option value="USER">Usuarios</mat-option>
+            <mat-option value="DESIGNER">Diseñadores</mat-option>
+            <mat-option value="ADMIN">Administradores</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <p class="total-info">Total: {{ dataSource.data.length }} usuarios</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Tabla de usuarios -->
+  <mat-card class="table-card">
+    <mat-card-content>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z4" matSort>
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+          <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+          <td mat-cell *matCellDef="let user">{{ user.nombre }} {{ user.apellido }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="correo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+          <td mat-cell *matCellDef="let user">{{ user.username }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="telefono">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+          <td mat-cell *matCellDef="let user">{{ user.telefono }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="rol">
+          <th mat-header-cell *matHeaderCellDef>Rol</th>
+          <td mat-cell *matCellDef="let user">
+            <span class="role-badge" [ngClass]="user.authorities[0].toLowerCase()">
+              {{ user.authorities[0] }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="suscripcion">
+          <th mat-header-cell *matHeaderCellDef>Suscripción</th>
+          <td mat-cell *matCellDef="let user">
+            <span class="suscripcion-info" [ngClass]="user.suscripcion ? 'con-suscripcion' : 'sin-suscripcion'">
+              {{ getSuscripcionInfo(user) }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let user">
+            <div class="actions-container">
+              <!-- Cambiar rol -->
+              <button mat-icon-button [matMenuTriggerFor]="roleMenu" color="primary" 
+                      [disabled]="user.authorities.includes('ADMIN')">
+                <mat-icon>swap_horiz</mat-icon>
+              </button>
+              <mat-menu #roleMenu="matMenu">
+                <button mat-menu-item (click)="cambiarRol(user, 'USER')" 
+                        [disabled]="user.authorities.includes('USER')">
+                  <mat-icon>person</mat-icon>
+                  <span>Usuario</span>
+                </button>
+                <button mat-menu-item (click)="cambiarRol(user, 'DESIGNER')"
+                        [disabled]="user.authorities.includes('DESIGNER')">
+                  <mat-icon>design_services</mat-icon>
+                  <span>Diseñador</span>
+                </button>
+                <button mat-menu-item (click)="cambiarRol(user, 'ADMIN')"
+                        [disabled]="user.authorities.includes('ADMIN')">
+                  <mat-icon>admin_panel_settings</mat-icon>
+                  <span>Administrador</span>
+                </button>
+              </mat-menu>
+
+              <!-- Eliminar usuario -->
+              <button mat-icon-button color="warn" (click)="eliminar(user.id)"
+                      [disabled]="user.authorities.includes('ADMIN')">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <!-- Mensaje cuando no hay datos -->
+      <div *ngIf="dataSource.data.length === 0" class="no-data">
+        <mat-icon>people_outline</mat-icon>
+        <p>No hay usuarios para mostrar</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+

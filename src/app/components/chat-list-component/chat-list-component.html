@@ -1,0 +1,116 @@
+<div *ngIf="esUsuario">
+  <h2>Mis Chats</h2>
+  <table *ngIf="chats.length > 0">
+    <tr>
+      <th>ID</th>
+      <th>Descripción</th>
+      <th>Estado</th>
+      <th>Diseñador</th>
+      <th>Ir al chat</th>
+    </tr>
+    <tr *ngFor="let chat of chats">
+      <td>{{ chat.idPeticion }}</td>
+      <td>{{ chat.descripcion }}</td>
+      <td>{{ chat.estado }}</td>
+      <td>{{ chat.idDisenador ? (chat.idDisenador.nombreDisenador + ' ' + chat.idDisenador.apellidoDisenador) : 'Sin asignar' }}</td>
+      <td>
+        <a mat-button [routerLink]="['/home-spaces', chat.idPeticion]">Ver chat</a>
+      </td>
+    </tr>
+  </table>
+  <div *ngIf="chats.length === 0">No tienes chats aún.</div>
+</div>
+
+<div *ngIf="esDisenador">
+  <h2>Chats Disponibles y Asignados</h2>
+  
+  <!-- Filtros -->
+  <div class="filtros-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Filtrar por tipo de cliente</mat-label>
+      <mat-select [(ngModel)]="filtroSeleccionado" (selectionChange)="aplicarFiltro()">
+        <mat-option value="todos">Todos los clientes</mat-option>
+        <mat-option value="con-suscripcion">Con suscripción</mat-option>
+        <mat-option value="sin-suscripcion">Sin suscripción</mat-option>
+        <mat-option value="premium">Premium (Mensual/Anual)</mat-option>
+        <mat-option value="free">Free</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Filtrar por estado</mat-label>
+      <mat-select [(ngModel)]="filtroEstado" (selectionChange)="aplicarFiltro()">
+        <mat-option value="todos">Todos los estados</mat-option>
+        <mat-option value="disponible">Disponibles</mat-option>
+        <mat-option value="asignado">Asignados</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="limpiarFiltros()">
+      <mat-icon>clear</mat-icon>
+      Limpiar filtros
+    </button>
+  </div>
+
+  <!-- Contador de resultados -->
+  <div class="contador-resultados">
+    <p>Mostrando {{ chatsFiltrados.length }} de {{ chats.length }} chats</p>
+  </div>
+
+  <table *ngIf="chatsFiltrados.length > 0">
+    <tr>
+      <th>ID</th>
+      <th>Descripción</th>
+      <th>Estado</th>
+      <th>Cliente</th>
+      <th>Suscripción</th>
+      <th>Acción</th>
+      <th>Ir al chat</th>
+    </tr>
+    <tr *ngFor="let chat of chatsFiltrados" [ngClass]="getClaseFila(chat)">
+      <td>{{ chat.idPeticion }}</td>
+      <td>{{ chat.descripcion }}</td>
+      <td>
+        <span class="estado-badge" [ngClass]="chat.estado">
+          {{ chat.estado }}
+        </span>
+      </td>
+      <td>{{ chat.idCliente.nombre + ' ' + chat.idCliente.apellido }}</td>
+      <td>
+        <div class="suscripcion-info" *ngIf="getSuscripcionCliente(chat)">
+          <span class="suscripcion-badge" [ngClass]="getTipoSuscripcion(chat)">
+            {{ getNombreSuscripcion(chat) }}
+          </span>
+          <small>{{ getDiasRestantes(chat) }} días restantes</small>
+        </div>
+        <span class="sin-suscripcion" *ngIf="!getSuscripcionCliente(chat)">
+          Sin suscripción
+        </span>
+      </td>
+      <td>
+        <button *ngIf="chat.estado === 'disponible'" (click)="tomarChat(chat)" class="btn-tomar">
+          <mat-icon>add</mat-icon>
+          Tomar chat
+        </button>
+        <span *ngIf="chat.estado === 'asignado' && chat.idDisenador && chat.idDisenador.idDisenador === idActual" class="asignado-ti">
+          <mat-icon>check_circle</mat-icon>
+          Asignado a ti
+        </span>
+        <span *ngIf="chat.estado === 'asignado' && chat.idDisenador && chat.idDisenador.idDisenador !== idActual" class="asignado-otro">
+          <mat-icon>person</mat-icon>
+          Asignado a otro
+        </span>
+      </td>
+      <td>
+        <a mat-button [routerLink]="['/home-spaces', chat.idPeticion]" class="btn-ver-chat">
+          <mat-icon>chat</mat-icon>
+          Ver chat
+        </a>
+      </td>
+    </tr>
+  </table>
+  <div *ngIf="chatsFiltrados.length === 0" class="sin-resultados">
+    <mat-icon>search_off</mat-icon>
+    <p>No se encontraron chats con los filtros seleccionados.</p>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<mat-toolbar color="primary" class="navbar">
+  <img src="assets/logo.png" alt="Logo" class="logo" />
+  <span class="spacer"></span>
+  <button mat-button routerLink="/inicio" *ngIf="tieneRol(['USER', 'ADMIN'])">Inicio</button>
+  <button mat-button routerLink="/designer" *ngIf="tieneRol('DESIGNER')">Panel Diseñador</button>
+  <button mat-button routerLink="/suscripcion" *ngIf="tieneRol('USER')">Suscripción</button>
+  <button mat-button routerLink="/espacios" *ngIf="tieneRol('USER')">Espacios de Casa</button>
+  <button mat-button routerLink="/resena" *ngIf="tieneRol('USER')">Reseña</button>
+  <button mat-button routerLink="/perfil" *ngIf="tieneRol(['USER', 'ADMIN', 'DESIGNER'])">Perfil</button>
+  <button mat-button routerLink="/admin" *ngIf="tieneRol('ADMIN')">Admin</button>
+  <button mat-button routerLink="/chat" *ngIf="tieneRol('USER')">Mis Chats</button>
+  <button mat-button routerLink="/chat-list" *ngIf="tieneRol('DESIGNER')">Mis Chats</button>
+</mat-toolbar>

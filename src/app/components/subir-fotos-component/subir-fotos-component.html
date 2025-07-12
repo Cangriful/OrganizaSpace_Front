@@ -1,0 +1,65 @@
+<div class="subir-fotos-container">
+  <h2>Subir Fotos</h2>
+  <p>Bienvenido, {{ nombreCliente }}</p>
+
+  <div class="form-container">
+    <div class="form-group">
+      <label for="nombreFoto">Nombre de la foto:</label>
+      <input 
+        type="text" 
+        id="nombreFoto" 
+        [(ngModel)]="foto.nombreFotos" 
+        placeholder="Ingresa el nombre de la foto"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="archivo">Seleccionar archivo:</label>
+      <input 
+        type="file" 
+        id="archivo" 
+        (change)="onFileChange($event)" 
+        accept="image/*"
+        class="form-control file-input"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="idPeticion">ID de Petición:</label>
+      <input 
+        type="number" 
+        id="idPeticion" 
+        [(ngModel)]="foto.idPeticion" 
+        placeholder="Ingresa el ID de la petición"
+        class="form-control"
+      />
+    </div>
+
+    <!-- Vista previa de la imagen -->
+    <div *ngIf="previewUrl" class="preview-container">
+      <h3>Vista previa:</h3>
+      <img [src]="previewUrl" alt="Vista previa" class="preview-image" />
+      <p class="file-info">Archivo: {{ foto.nombreFotos }}</p>
+    </div>
+
+    <button 
+      (click)="subirFoto()" 
+      [disabled]="guardandoImagen || !foto.nombreFotos || !selectedFile"
+      class="btn-subir"
+    >
+      <span *ngIf="guardandoImagen">Guardando...</span>
+      <span *ngIf="!guardandoImagen">Subir Foto</span>
+    </button>
+  </div>
+
+  <!-- Botones de utilidad -->
+  <div class="utility-buttons">
+    <button (click)="obtenerEstadisticas()" class="btn-utility">
+      Ver Estadísticas
+    </button>
+    <button (click)="limpiarImagenesAntiguas()" class="btn-utility">
+      Limpiar Imágenes Antiguas
+    </button>
+  </div>
+</div>

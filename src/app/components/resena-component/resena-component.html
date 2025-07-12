@@ -1,0 +1,37 @@
+<mat-card class="review-card">
+  <h2>Deja tu reseña</h2>
+
+  <form [formGroup]="reviewForm" (ngSubmit)="subirResena()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Comentario</mat-label>
+      <textarea matInput formControlName="descripcion" rows="4"></textarea>
+    </mat-form-field>
+
+    <div class="stars">
+      <span *ngFor="let star of [1, 2, 3, 4, 5]" (click)="seleccionarEstrellas(star)">
+        <mat-icon [color]="star <= stars ? 'accent' : ''">
+          {{ star <= stars ? 'star' : 'star_border' }}
+        </mat-icon>
+      </span>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit">
+      Subir reseña
+    </button>
+  </form>
+</mat-card>
+
+<!-- Lista de reseñas -->
+<mat-card class="resenas-guardadas" *ngIf="resenas.length > 0">
+  <h2>Reseñas de otros usuarios</h2>
+  <div *ngFor="let r of resenas" class="resena">
+    <strong>{{ r.user.nombre }}</strong>
+    <div class="stars">
+      <mat-icon *ngFor="let s of [1, 2, 3, 4, 5]">
+        {{ s <= r.estrellas ? 'star' : 'star_border' }}
+      </mat-icon>
+    </div>
+    <p>{{ r.descripcion }}</p>
+    <mat-divider></mat-divider>
+  </div>
+</mat-card>

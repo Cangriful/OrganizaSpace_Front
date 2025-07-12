@@ -1,0 +1,72 @@
+<div class="user-chats-container" *ngIf="!isLoading">
+  <h1>Mis Chats</h1>
+  
+  <div class="chats-section">
+    <div class="chats-header">
+      <h2>Chats Creados</h2>
+      <p>Aquí puedes ver todos los chats que has creado para cotizar servicios</p>
+    </div>
+
+    <div class="chats-list" *ngIf="misChats.length > 0">
+      <div class="chat-card" *ngFor="let chat of misChats">
+        <div class="chat-header">
+          <h3>Chat #{{ chat.idPeticion }}</h3>
+          <span class="estado-badge" [style.background-color]="obtenerColorEstado(chat)">
+            {{ obtenerEstadoChat(chat) }}
+          </span>
+        </div>
+        
+        <div class="chat-details">
+          <div class="detail-row">
+            <strong>Servicio:</strong> {{ chat.idServicio.descripcion }}
+          </div>
+          <div class="detail-row">
+            <strong>Espacio:</strong> {{ chat.idEspacio.nombreEspacio }}
+          </div>
+          <div class="detail-row">
+            <strong>Descripción:</strong> {{ chat.descripcion }}
+          </div>
+          <div class="detail-row">
+            <strong>Mensajes:</strong> {{ chat.mensajes.length }}
+          </div>
+          <div class="detail-row" *ngIf="chat.idDisenador">
+            <strong>Diseñador asignado:</strong> 
+            {{ chat.idDisenador.nombreDisenador }} {{ chat.idDisenador.apellidoDisenador }}
+          </div>
+        </div>
+
+        <div class="chat-actions">
+          <button mat-raised-button color="primary" [routerLink]="['/home-spaces', chat.idPeticion]">
+            <mat-icon>chat</mat-icon>
+            Ir al Chat
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="no-chats" *ngIf="misChats.length === 0">
+      <mat-icon class="no-chats-icon">chat_bubble_outline</mat-icon>
+      <h3>No tienes chats aún</h3>
+      <p>Para crear un chat, ve a la sección de servicios y cotiza un servicio</p>
+      <button mat-raised-button color="primary" routerLink="/servicios">
+        Ver Servicios
+      </button>
+    </div>
+  </div>
+
+  <div class="actions-section">
+    <button mat-raised-button color="accent" routerLink="/servicios">
+      <mat-icon>add</mat-icon>
+      Crear Nuevo Chat
+    </button>
+    <button mat-stroked-button routerLink="/inicio">
+      <mat-icon>home</mat-icon>
+      Volver al Inicio
+    </button>
+  </div>
+</div>
+
+<div class="loading-container" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p>Cargando mis chats...</p>
+</div> 

@@ -1,0 +1,85 @@
+<mat-card class="login-card">
+  <mat-card-title>Registrarse</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="registerForm">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput formControlName="username" />
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Rol</mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="USER">Usuario</mat-option>
+          <mat-option value="DESIGNER">Diseñador</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" />
+        <mat-icon matSuffix>badge</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="apellido" />
+        <mat-icon matSuffix>badge</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="telefono" />
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+
+      <!-- Sección de foto de perfil -->
+      <div class="foto-perfil-section">
+        <h3>Foto de Perfil (Opcional)</h3>
+        <div class="foto-input-container">
+          <input 
+            type="file" 
+            (change)="onFileSelected($event)" 
+            accept="image/*"
+            class="foto-input"
+            id="fotoPerfil"
+          />
+          <label for="fotoPerfil" class="foto-label">
+            <mat-icon>add_a_photo</mat-icon>
+            <span>Seleccionar foto</span>
+          </label>
+        </div>
+
+        <!-- Vista previa de la foto -->
+        <div *ngIf="previewUrl" class="preview-container">
+          <img [src]="previewUrl" alt="Vista previa" class="preview-image" />
+          <button mat-icon-button (click)="limpiarFoto()" class="remove-photo">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button mat-stroked-button color="warn" routerLink="/">Cancelar</button>
+        <button 
+          mat-raised-button 
+          color="primary" 
+          (click)="Registrar()" 
+          [disabled]="registerForm.invalid || guardandoFoto"
+        >
+          <span *ngIf="guardandoFoto">Guardando...</span>
+          <span *ngIf="!guardandoFoto">Registrar</span>
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

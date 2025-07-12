@@ -1,0 +1,28 @@
+.review-card {
+  width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.user-info .avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 10px auto;
+  display: block;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.stars mat-icon {
+  font-size: 32px;
+  cursor: pointer;
+}

@@ -1,0 +1,74 @@
+<div class="suscripcion-container">
+  <h2 class="titulo">Suscripción</h2>
+  
+  <!-- Información de suscripción actual -->
+  <div *ngIf="tieneSuscripcionActiva" class="suscripcion-actual">
+    <div class="suscripcion-info">
+      <h3>🎉 ¡Tienes una suscripción activa!</h3>
+      <div class="suscripcion-details">
+        <p><strong>Plan:</strong> {{ suscripcionActual?.nombre }}</p>
+        <p><strong>Vence:</strong> {{ formatearFecha(suscripcionActual?.fechaVencimiento || '') }}</p>
+        <p><strong>Días restantes:</strong> {{ diasRestantes }} días</p>
+      </div>
+      <div class="suscripcion-actions">
+        <button class="btn-renovar" (click)="renovarSuscripcion()">Renovar</button>
+        <button class="btn-cancelar" (click)="cancelarSuscripcion()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensaje para usuarios sin suscripción -->
+  <div *ngIf="!tieneSuscripcionActiva" class="sin-suscripcion">
+    <p>💡 Suscríbete para disfrutar de mensajes ilimitados y todas las funciones premium</p>
+  </div>
+
+  <div class="planes">
+    <!-- Free -->
+    <div class="plan free">
+      <h3>Free</h3>
+      <p class="precio">s/0</p>
+      <ul>
+        <li>✅ Subir 1 sola imagen</li>
+        <li>✅ 5 mensajes por chat</li>
+        <li>✅ Acceso básico</li>
+      </ul>
+      <button (click)="abrirModal('free')" [disabled]="tieneSuscripcionActiva">Activar</button>
+    </div>
+
+    <!-- Premium mensual -->
+    <div class="plan premium-mes destacado">
+      <div class="badge">Recomendado</div>
+      <h3>Premium <span>/mes</span></h3>
+      <p class="precio">s/10</p>
+      <ul>
+        <li>✅ Mensajes ilimitados</li>
+        <li>✅ Subir imágenes ilimitadas</li>
+        <li>✅ Conversación sin límite</li>
+        <li>✅ Promociones en tiendas favoritas</li>
+      </ul>
+      <button (click)="abrirModal('mensual')" [disabled]="tieneSuscripcionActiva">Suscribirse</button>
+    </div>
+
+    <!-- Premium anual -->
+    <div class="plan premium-anual">
+      <div class="badge">Mejor valor</div>
+      <h3>Premium <span>/año</span></h3>
+      <p class="precio">s/100</p>
+      <p class="ahorro">¡Ahorra s/20 al año!</p>
+      <ul>
+        <li>✅ Mensajes ilimitados</li>
+        <li>✅ Subir imágenes ilimitadas</li>
+        <li>✅ Conversación sin límite</li>
+        <li>✅ Promociones en tiendas favoritas</li>
+        <li>✅ Soporte prioritario</li>
+      </ul>
+      <button (click)="abrirModal('anual')" [disabled]="tieneSuscripcionActiva">Suscribirse</button>
+    </div>
+  </div>
+
+  <app-metodopago-component 
+    *ngIf="modalAbierto" 
+    [planSeleccionado]="planSeleccionado"
+    (cerrar)="cerrarModal()">
+  </app-metodopago-component>
+</div>

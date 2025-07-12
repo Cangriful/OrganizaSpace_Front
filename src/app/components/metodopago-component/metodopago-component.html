@@ -1,0 +1,24 @@
+<div class="modal-content" (click)="$event.stopPropagation()">
+  <h2>Seleccione un método de pago</h2>
+  <div class="etiqueta">Suscripción</div>
+
+  <div class="iconos">
+    <div 
+      class="metodo visa" 
+      [class.seleccionado]="metodoSeleccionado === 'visa'"
+      (click)="seleccionarMetodo('visa')">
+      Visa
+    </div>
+
+    <div 
+      class="metodo mastercard" 
+      [class.seleccionado]="metodoSeleccionado === 'mastercard'"
+      (click)="seleccionarMetodo('mastercard')">
+      MasterCard
+    </div>
+  </div>
+
+  <button class="confirmar-btn" (click)="confirmar()">Confirmar</button>
+  <span></span>
+  <button class="cancelar-btn" (click)="cancelar()">Cancelar</button>
+</div>

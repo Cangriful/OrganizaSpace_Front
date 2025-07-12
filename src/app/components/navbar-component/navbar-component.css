@@ -1,0 +1,28 @@
+.navbar {
+  background-color: #29ac7a !important; /* fondo negro sólido */
+  color: white;
+  padding: 0 20px;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 20px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Botones del navbar */
+.navbar button.mat-button {
+  color: white !important;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+/* Fondo verde pastel al pasar el cursor */
+.navbar button.mat-button:hover {
+  background-color: #b4e0c3 !important;
+  border-radius: 4px;
+}

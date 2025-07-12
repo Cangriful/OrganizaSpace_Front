@@ -1,0 +1,141 @@
+.perfil-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.perfil-avatar {
+  background-color: #3f51b5;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-icon.icono {
+  vertical-align: middle;
+  margin-right: 8px;
+  color: #555;
+}
+
+.perfil-info p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.suscripcion-info {
+  margin: 20px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  color: white;
+}
+
+.suscripcion-info h3 {
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.suscripcion-info p {
+  margin: 8px 0;
+  font-size: 1.1em;
+}
+
+.suscripcion-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.sin-suscripcion {
+  margin: 20px 0;
+  padding: 20px;
+  background: #e3f2fd;
+  border: 2px solid #2196F3;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.sin-suscripcion h3 {
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #1976d2;
+}
+
+.sin-suscripcion p {
+  margin: 10px 0;
+  color: #1976d2;
+  font-size: 1.1em;
+}
+
+.historial-suscripciones {
+  margin: 20px 0;
+}
+
+.historial-suscripciones h3 {
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #333;
+}
+
+mat-list-item {
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: #f5f5f5;
+}
+
+mat-list-item:hover {
+  background: #e0e0e0;
+}
+
+.rol-info {
+  margin: 20px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border-radius: 10px;
+  color: white;
+}
+
+.rol-info h3 {
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rol-info p {
+  margin: 10px 0;
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+.rol-info ul {
+  margin: 15px 0;
+  padding-left: 20px;
+}
+
+.rol-info li {
+  margin: 8px 0;
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .suscripcion-actions {
+    flex-direction: column;
+  }
+  
+  .suscripcion-info,
+  .sin-suscripcion {
+    padding: 15px;
+  }
+}

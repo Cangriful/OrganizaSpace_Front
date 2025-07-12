@@ -1,0 +1,107 @@
+
+<div *ngIf="page === 1" class="firstContainer">
+  <h2 class="title">{{ userName }}</h2>
+  <p>Descripción:</p>
+  <textarea class="textArea" [(ngModel)]="textValue" placeholder="Describe lo que necesitas..."></textarea>
+
+  <p>Archivos:</p>
+  <input type="file" (change)="onFileSelected($event)" class="file-input" accept="image/*" />
+
+  <div *ngIf="filePreviewUrl" class="preview-box">
+    <h3>Vista previa:</h3>
+    <img *ngIf="isImage" [src]="filePreviewUrl" alt="Vista previa" />
+    <p *ngIf="!isImage">No se puede previsualizar este archivo.</p>
+  </div>
+
+  <p *ngIf="fileName">Archivo seleccionado: {{ fileName }}</p>
+
+  <button class="btn-primary" (click)="changeToSecondDisplay()" [disabled]="guardandoImagen">
+    <span *ngIf="guardandoImagen">Guardando imagen...</span>
+    <span *ngIf="!guardandoImagen">Solicitar</span>
+  </button>
+</div>
+
+<div *ngIf="page === 2" class="secondContainer">
+  <div *ngFor="let chatText of chatTextList; let i = index" class="chat-wrapper" [ngClass]="{
+        'chat-left': chatText.name === userName,
+        'chat-right': chatText.name !== userName
+      }">
+    <!-- Avatar con foto de perfil -->
+    <div class="avatar-container">
+      <img 
+        class="avatar" 
+        [src]="chatText.fotoPerfil ? getFotoPerfilUrl(chatText.fotoPerfil) : getDefaultAvatar(chatText.name === userName)" 
+        [alt]="chatText.name + ' avatar'"
+        (error)="onImageError($event, chatText.name === userName)"
+      />
+    </div>
+    
+    <div class="chat-bubble">
+      <strong>{{ chatText.name }}</strong>
+      <p>{{ chatText.text }}</p>
+      
+      <!-- Mostrar imagen guardada -->
+      <div *ngIf="chatText.imagen" class="chat-image">
+        <img [src]="getImagenUrl(chatText.imagen)" [alt]="chatText.nombreArchivo || 'Imagen del chat'" />
+        <p class="image-name">{{ chatText.nombreArchivo }}</p>
+      </div>
+      
+      <!-- Mostrar imagen de vista previa (solo para el primer mensaje) -->
+      <div *ngIf="filePreviewUrl && i === 0 && !chatText.imagen">
+        <img *ngIf="isImage" [src]="filePreviewUrl" alt="Vista previa" />
+        <p *ngIf="!isImage">No se puede previsualizar este archivo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input de chat para usuarios (con verificación de límite) -->
+  <div *ngIf="esUsuario && puedeEnviarMensajes" class="chat-input-box">
+    <div class="input-container">
+      <input [(ngModel)]="chatInputValue" type="text" placeholder="Escribe tu mensaje..." />
+      <input type="file" (change)="onFileSelected($event)" class="file-input-inline" accept="image/*" />
+      <button class="btn-send" (click)="addChat()" [disabled]="guardandoImagen">
+        <span *ngIf="guardandoImagen">Guardando...</span>
+        <span *ngIf="!guardandoImagen">Enviar</span>
+      </button>
+    </div>
+    <div *ngIf="filePreviewUrl" class="inline-preview">
+      <img [src]="filePreviewUrl" alt="Vista previa" />
+      <span class="file-name">{{ fileName }}</span>
+    </div>
+  </div>
+
+  <!-- Input de chat para diseñadores (sin límite) -->
+  <div *ngIf="esDisenador" class="chat-input-box">
+    <div class="input-container">
+      <input [(ngModel)]="chatInputValue" type="text" placeholder="Escribe tu mensaje..." />
+      <input type="file" (change)="onFileSelected($event)" class="file-input-inline" accept="image/*" />
+      <button class="btn-send" (click)="addChat()" [disabled]="guardandoImagen">
+        <span *ngIf="guardandoImagen">Guardando...</span>
+        <span *ngIf="!guardandoImagen">Enviar</span>
+      </button>
+    </div>
+    <div *ngIf="filePreviewUrl" class="inline-preview">
+      <img [src]="filePreviewUrl" alt="Vista previa" />
+      <span class="file-name">{{ fileName }}</span>
+    </div>
+  </div>
+
+  <!-- Mensaje de suscripción para usuarios sin suscripción -->
+  <div *ngIf="esUsuario && !puedeEnviarMensajes" class="suscription-message">
+    <div class="subscription-alert">
+      <h3>🚀 ¡Mejora tu experiencia!</h3>
+      <p>Has alcanzado el límite de 5 mensajes gratuitos.</p>
+      <p>Suscríbete para disfrutar de mensajes ilimitados y todas las funciones premium.</p>
+      <a href="/suscripcion" class="btn-suscribirse">Suscribirse ahora</a>
+    </div>
+  </div>
+
+  <!-- Mensaje para diseñadores cuando el usuario no puede enviar más mensajes -->
+  <div *ngIf="esDisenador && !puedeEnviarMensajes" class="designer-message">
+    <div class="designer-alert">
+      <h3>💬 Información</h3>
+      <p>El usuario ha alcanzado su límite de mensajes gratuitos.</p>
+      <p>Puedes seguir respondiendo para ayudarle con su proyecto.</p>
+    </div>
+  </div>
+</div>
