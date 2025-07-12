@@ -95,3 +95,4 @@ export class PerfilComponent implements OnInit {
     }
   }
 }
+/*perfil*/
