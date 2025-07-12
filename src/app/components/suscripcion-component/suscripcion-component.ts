@@ -75,7 +75,7 @@ export class SuscripcionComponent implements OnInit {
     // Recargar información de suscripción después de cerrar el modal
     this.cargarInformacionSuscripcion();
   }
-
+/*si desea cancelar su suscripcion*/
   cancelarSuscripcion(): void {
     if (confirm('¿Estás seguro de que quieres cancelar tu suscripción?')) {
       if (this.userData && this.userData.id) {
@@ -89,7 +89,7 @@ export class SuscripcionComponent implements OnInit {
       }
     }
   }
-
+  
   renovarSuscripcion(): void {
     if (this.suscripcionActual) {
       this.abrirModal(this.suscripcionActual.nombre.split('-')[0]);
