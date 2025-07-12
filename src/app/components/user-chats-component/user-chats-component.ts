@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChatService } from '../../services/chat-service';
 import { AuthService } from '../../services/auth-service';
 import { Peticion } from '../../../models/peticion';
-
+/*Aca se guardan los chats de los usuarios*/
 @Component({
   selector: 'app-user-chats-component',
   standalone: false,
