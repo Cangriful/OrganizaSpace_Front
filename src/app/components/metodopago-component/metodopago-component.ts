@@ -35,7 +35,7 @@ export class MetodopagoComponent implements OnInit {
   seleccionarMetodo(metodo: string) {
     this.metodoSeleccionado = metodo;
   }
-
+/*seleccionar metodo de pago*/
   confirmar() {
     if (!this.metodoSeleccionado) {
       alert('Por favor selecciona un método de pago');
