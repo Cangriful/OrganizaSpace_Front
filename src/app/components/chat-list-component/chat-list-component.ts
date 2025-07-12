@@ -51,7 +51,7 @@ export class ChatListComponent implements OnInit {
       this.chatsFiltrados = [...this.chats];
     }
   }
-
+/*filtrar*/
   aplicarFiltro() {
     this.chatsFiltrados = this.chats.filter(chat => {
       // Filtro por tipo de cliente
