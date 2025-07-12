@@ -70,3 +70,4 @@ export class LoginComponent implements OnInit {
   }
 }
 }
+/*esto es el login*/
