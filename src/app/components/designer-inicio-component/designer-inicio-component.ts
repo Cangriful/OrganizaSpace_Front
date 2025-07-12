@@ -37,7 +37,7 @@ export class DesignerInicioComponent implements OnInit {
       this.isLoading = false;
     }
   }
-
+/*cargar chats*/
   cargarChats() {
     if (isPlatformBrowser(this.platformId)) {
       try {
