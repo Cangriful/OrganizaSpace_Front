@@ -31,7 +31,7 @@ export class RegisterComponent {
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
-
+/*el form se inicializa vacio cuando se va cargar justo despues de lo elementos visuales*/
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.email]],
