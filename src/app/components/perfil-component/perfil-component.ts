@@ -6,7 +6,7 @@ import { Suscripcion } from '../../../models/suscripcion';
 import { SuscripcionService } from '../../services/suscripcion-service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-
+/*Este es el espacio para visualizar el perfil*/
 @Component({
   selector: 'app-perfil-component',
   standalone: false,
