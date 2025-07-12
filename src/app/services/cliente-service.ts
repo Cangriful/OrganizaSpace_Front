@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ClienteDto } from '../../models/cliente';
-
+/*Este es el servicio del cliente*/
 @Injectable({
   providedIn: 'root'
 })
