@@ -273,6 +273,7 @@ export class ChatComponent {
       alert('Error al enviar el mensaje. Inténtalo de nuevo.');
     }
   }
+  /*chat*/
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
