@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
-
+/*sandunga*/
 @Component({
   selector: 'app-navbar-component',
   standalone: false,
